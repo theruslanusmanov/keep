@@ -1,6 +1,18 @@
+const APP_URL = 'https://localhost:3000'
+
+
 describe('App', () => {
 
-  it('should create note and update list', function() {});
+  beforeEach(() => {
+    cy.visit(APP_URL)
+  })
+
+  it('should create note and update list', function() {
+    cy.get('[data-cy="notes"]').should('have.length', 2);
+    cy.get('[data-cy="create-button"]').click();
+    cy.get('[data-cy="note-body"]').type('New note text.{enter}');
+    cy.get('[data-cy="notes"]').should('have.length', 3);
+  });
 
   it('should show notes list', function() {});
 
