@@ -1,16 +1,26 @@
-const APP_URL = 'https://localhost:3000'
-
+const APP_URL = 'https://localhost:3000';
 
 describe('App', () => {
 
   beforeEach(() => {
-    cy.visit(APP_URL)
-  })
+    cy.visit(APP_URL);
+  });
 
   it('should create note and update list', function() {
     cy.get('[data-cy="notes"]').should('have.length', 2);
     cy.get('[data-cy="create-button"]').click();
-    cy.get('[data-cy="note-body"]').type('New note text.{enter}');
+
+    const bodyText = 'New note text.';
+    cy.intercept({
+      method: 'POST', url: '**/note',
+    }, {
+      statusCode: 200, body: bodyText,
+    }).as('createNote');
+    cy.get('[data-cy="note-body"]').type(`${bodyText}{enter}`);
+    cy.wait('@createNote').should(({request, response}) => {
+      expect(request && request.body).to.have.value(bodyText);
+    });
+
     cy.get('[data-cy="notes"]').should('have.length', 3);
   });
 
