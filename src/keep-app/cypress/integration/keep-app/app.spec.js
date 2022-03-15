@@ -24,7 +24,18 @@ describe('App', () => {
     cy.get('[data-cy="notes"]').should('have.length', 3);
   });
 
-  it('should show notes list', function() {});
+  it('should show notes list', function() {
+    cy.intercept({
+      method: 'POST', url: '**/notes',
+    }, {
+      statusCode: 200,
+      body: [
+        {id: '1', body: 'Note'},
+        {id: '2', body: 'Another Note'},
+      ],
+    }).as('notes');
+    cy.get('[data-cy="notes"]').should('have.length', 2);
+  });
 
   it('should remove note, add it to bin', function() {});
 
