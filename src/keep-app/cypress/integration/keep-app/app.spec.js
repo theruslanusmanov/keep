@@ -9,7 +9,7 @@ describe('App', () => {
   describe('Notes', function () {
 
     it('should create note and update list', function () {
-      cy.get('[data-cy="notes"]').should('have.length', 2)
+      cy.find('[data-cy="notes"]').should('have.length', 2)
       cy.get('[data-cy="create-button"]').click()
 
       const bodyText = 'New note text.'
