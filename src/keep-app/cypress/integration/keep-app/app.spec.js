@@ -1,4 +1,4 @@
-const APP_URL = 'https://localhost:3000'
+const APP_URL = '/'
 
 describe('App', () => {
 
