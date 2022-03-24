@@ -1,72 +1,81 @@
-const APP_URL = '/'
-const bodyText = 'New note text.'
+const APP_URL = '/';
+const host = 'http://localhost:3001'
+const bodyText = 'New note text.';
+const notes = [
+  {id: '1', body: 'Note'},
+  {id: '2', body: 'Another Note'},
+];
 
-function interceptCreateNote () {
+function interceptCreateNote() {
   return cy.intercept(
     {
       method: 'POST',
-      url: 'http://localhost:3001/note',
+      url: `${host}/note`,
     },
     {
       statusCode: 200,
       body: bodyText,
     },
-  )
+  );
+}
+
+function interceptGetNotes() {
+  return cy.intercept(
+    {
+      method: 'POST',
+      url: `${host}/notes`,
+    },
+    {
+      statusCode: 200,
+      body: notes,
+    },
+  );
 }
 
 describe('App', () => {
 
   beforeEach(() => {
-    cy.visit(APP_URL)
-  })
+    cy.visit(APP_URL);
+  });
 
-  describe('Notes', function () {
+  describe('Notes', function() {
 
     beforeEach(() => {
-      interceptCreateNote().as('createNote')
-    })
+      interceptCreateNote().as('createNote');
+      interceptGetNotes().as('getNotes');
+    });
 
-    it.only('should create note and update list', function () {
-      cy.get('[data-cy="notes"]').find('div').should('have.length', 2)
-      cy.get('[data-cy="create-button"]').click()
+    it('should create note and update list', function() {
+      cy.get('[data-cy="notes"]').find('div').should('have.length', 2);
+      cy.get('[data-cy="create-button"]').click();
 
-      cy.get('[data-cy="note-body"]').type(`${bodyText}{enter}`)
-      cy.wait('@createNote').should(({ request, response }) => {
-        expect(request.body).to.be.equal(bodyText)
-      })
+      cy.get('[data-cy="note-body"]').type(`${bodyText}{enter}`);
+      cy.wait('@createNote').should(({request, response}) => {
+        expect(request.body).to.be.equal(bodyText);
+      });
 
-      cy.get('[data-cy="notes"]').find('div').should('have.length', 3)
-    })
+      cy.get('[data-cy="notes"]').find('div').should('have.length', 3);
+    });
 
-    it('should show a list of notes', function () {
-      const notes = [
-        { id: '1', body: 'Note' },
-        { id: '2', body: 'Another Note' },
-      ]
-      cy.intercept({
-        method: 'POST', url: '**/notes',
-      }, {
-        statusCode: 200,
-        body: notes,
-      }).as('notes')
-      cy.wait('@notes').should(({ request, response }) => {
-        expect(response.statusCode).should('be', 200)
-        expect(response && response.body).to.have.value(notes)
-      })
-      cy.get('[data-cy="notes"]').should('have.length', 2)
-    })
+    it.only('should show a list of notes', function() {
+      /*cy.wait('@getNotes').should(({request, response}) => {
+        expect(response.statusCode).should('be', 200);
+        /!*expect(response.body).to.be.equal(notes);*!/
+      });*/
+      cy.get('[data-cy="notes"]').find('div').should('have.length', 2);
+    });
 
-    it('should remove note', function () {
-      const noteId = 'note_id'
+    it('should remove note', function() {
+      const noteId = 'note_id';
       cy.intercept({
         method: 'DELETE', url: '**/note',
       }, {
         statusCode: 200, body: noteId,
-      }).as('deleteNote')
-      cy.get('[data-cy="notes"] > [data-cy="note"]:first-child')
-        .find('[data-cy="delete-button"]')
-        .click()
-      cy.wait('@deleteNote').its('response.statusCode').should('be', 200)
-    })
-  })
-})
+      }).as('deleteNote');
+      cy.get('[data-cy="notes"] > [data-cy="note"]:first-child').
+        find('[data-cy="delete-button"]').
+        click();
+      cy.wait('@deleteNote').its('response.statusCode').should('be', 200);
+    });
+  });
+});
