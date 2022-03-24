@@ -1,4 +1,18 @@
 const APP_URL = '/'
+const bodyText = 'New note text.'
+
+function interceptCreateNote () {
+  return cy.intercept(
+    {
+      method: 'POST',
+      url: 'http://localhost:3001/note',
+    },
+    {
+      statusCode: 200,
+      body: bodyText,
+    },
+  )
+}
 
 describe('App', () => {
 
@@ -8,29 +22,27 @@ describe('App', () => {
 
   describe('Notes', function () {
 
-    it('should create note and update list', function () {
-      cy.find('[data-cy="notes"]').should('have.length', 2)
+    beforeEach(() => {
+      interceptCreateNote().as('createNote')
+    })
+
+    it.only('should create note and update list', function () {
+      cy.get('[data-cy="notes"]').find('div').should('have.length', 2)
       cy.get('[data-cy="create-button"]').click()
 
-      const bodyText = 'New note text.'
-      cy.intercept({
-        method: 'POST', url: '**/note',
-      }, {
-        statusCode: 200, body: bodyText,
-      }).as('createNote')
       cy.get('[data-cy="note-body"]').type(`${bodyText}{enter}`)
       cy.wait('@createNote').should(({ request, response }) => {
-        expect(request && request.body).to.have.value(bodyText)
+        expect(request.body).to.be.equal(bodyText)
       })
 
-      cy.get('[data-cy="notes"]').should('have.length', 3)
+      cy.get('[data-cy="notes"]').find('div').should('have.length', 3)
     })
 
     it('should show a list of notes', function () {
       const notes = [
         { id: '1', body: 'Note' },
         { id: '2', body: 'Another Note' },
-      ];
+      ]
       cy.intercept({
         method: 'POST', url: '**/notes',
       }, {
