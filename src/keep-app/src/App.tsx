@@ -22,7 +22,7 @@ function App() {
         .catch();
   }, [])
 
-  const createButton = () => {
+  const createNote = () => {
     setNotes([...notes, {id: '3', body: bodyText}]);
 
     fetch(`${host}/note`, {
@@ -34,6 +34,15 @@ function App() {
       .catch()
   }
 
+  const removeNote = (id: string) => {
+    fetch(`${host}/note`, {
+      method: 'DELETE',
+      body: id
+    })
+      .then(res => res.json())
+      .catch()
+  }
+
   return (
     <div className="App">
       <div className="create-note">
@@ -41,7 +50,7 @@ function App() {
         <button
           className="create-button"
           data-cy="create-button"
-          onClick={() => createButton()}
+          onClick={() => createNote()}
         >
           Create note
         </button>
@@ -49,7 +58,10 @@ function App() {
       <div className="notes" data-cy="notes">
         {
           notes.map((v, i) => (
-            <div key={i} className="note">{v.body}</div>
+            <div key={i} className="note" data-cy="note">
+              <h1>{v.body}</h1>
+              <div data-cy="delete-button" onClick={() => removeNote(v.id)}>X</div>
+            </div>
           ))
         }
       </div>
