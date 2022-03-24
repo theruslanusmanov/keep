@@ -26,10 +26,13 @@ function App() {
     <div className="App">
       <div className="create-note">
         <input type="text" data-cy="note-body"/>
-        <button className="create-button"
-                data-cy="create-button"
-                onClick={() => createButton()}
-        />
+        <button
+          className="create-button"
+          data-cy="create-button"
+          onClick={() => createButton()}
+        >
+          Create note
+        </button>
       </div>
       <div className="notes" data-cy="notes">
         {
