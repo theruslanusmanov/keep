@@ -45,22 +45,22 @@ function App() {
 
   return (
     <div className="App">
-      <div className="create-note">
-        <input type="text" data-cy="note-body"/>
-        <button
-          className="create-button"
-          data-cy="create-button"
-          onClick={() => createNote()}
-        >
-          Create note
-        </button>
-      </div>
       <div className="notes" data-cy="notes">
+        <div className="create-note note">
+          <textarea data-cy="note-body"/>
+          <button
+            className="create-button"
+            data-cy="create-button"
+            onClick={() => createNote()}
+          >
+            Add
+          </button>
+        </div>
         {
           notes.map((v, i) => (
             <div key={i} className="note" data-cy="note">
-              <h1>{v.body}</h1>
-              <div data-cy="delete-button" onClick={() => removeNote(v.id)}>X</div>
+              <span>{v.body}</span>
+              <div className="delete-button" data-cy="delete-button" onClick={() => removeNote(v.id)}>X</div>
             </div>
           ))
         }
