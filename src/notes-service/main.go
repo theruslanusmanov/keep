@@ -22,7 +22,7 @@ func main() {
 	router.GET("/notes/:id", getNoteByID)
 	router.POST("/notes", postNotes)
 
-	router.Run("localhost:8080")
+	router.Run("0.0.0.0:8080")
 }
 
 func getNotes(c *gin.Context) {
