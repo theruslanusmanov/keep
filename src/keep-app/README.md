@@ -1,6 +1,15 @@
-# Getting Started with Create React App
+# Keep App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Start
+1. Build `docker build -t keep-app:dev .`
+2. Run `docker run -it --rm \
+   -v ${PWD}:/app \
+   -v /app/node_modules \
+   -p 3001:3000 \
+   -e CHOKIDAR_USEPOLLING=true \
+   keep-app:dev`
 
 ## Available Scripts
 
