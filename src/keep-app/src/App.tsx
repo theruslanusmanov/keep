@@ -50,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>keep</h1>
       <div className="notes" data-cy="notes">
         <div className="create-note note">
           <textarea data-cy="note-body" placeholder="New note..."/>
