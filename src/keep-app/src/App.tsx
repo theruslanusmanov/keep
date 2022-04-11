@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.scss';
 
 
-const host = 'http://localhost:3001'
+const host = 'http://localhost:8080'
 const bodyText = 'New note text.'
 const initNotes = [
   {id: '1', body: 'Note'},

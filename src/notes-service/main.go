@@ -18,9 +18,11 @@ var notes = []note{
 
 func main() {
 	router := gin.Default()
+
 	router.GET("/notes", getNotes)
 	router.GET("/notes/:id", getNoteByID)
 	router.POST("/notes", postNotes)
+	router.DELETE("/notes", deleteNoteByID)
 
 	router.Run("0.0.0.0:8080")
 }
@@ -49,5 +51,19 @@ func getNoteByID(c *gin.Context) {
 			return
 		}
 	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "note not found"})
+}
+
+func deleteNoteByID(c *gin.Context) {
+	id := c.Param("id")
+
+	for i, a := range notes {
+		if a.ID == id {
+			notes = append(notes[:i], notes[i+1:]...)
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "note not found"})
 }
