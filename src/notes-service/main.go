@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 )
 
 type note struct {
@@ -19,12 +20,31 @@ var notes = []note{
 func main() {
 	router := gin.Default()
 
+	router.Use(cors.Default())
+	router.Use(CORSMiddleware())
+
 	router.GET("/notes", getNotes)
 	router.GET("/notes/:id", getNoteByID)
 	router.POST("/notes", postNotes)
 	router.DELETE("/notes", deleteNoteByID)
 
 	router.Run("0.0.0.0:8080")
+}
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
 }
 
 func getNotes(c *gin.Context) {
