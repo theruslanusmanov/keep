@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './App.scss';
 
 
 const host = 'http://localhost:3001'
@@ -35,6 +35,11 @@ function App() {
   }
 
   const removeNote = (id: string) => {
+    const noteId = notes.findIndex(v => v.id === id);
+    let updatedNotes = [...notes];
+    updatedNotes.splice(noteId, 1);
+    setNotes(updatedNotes);
+
     fetch(`${host}/note`, {
       method: 'DELETE',
       body: id
