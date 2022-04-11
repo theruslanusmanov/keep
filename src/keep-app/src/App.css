@@ -5,8 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #18191b;
-  color: white;
+  background-color: #f3f5f7;
   box-sizing: border-box;
 }
 
@@ -19,8 +18,8 @@
 .note {
   position: relative;
   display: flex;
-  background-color: #202021;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: #ffffff;
+  border: 1px solid rgba(22, 125, 255, 0.15);
   border-radius: 4px;
   width: 240px;
   height: 180px;
@@ -39,15 +38,11 @@
 }
 
 .create-note {
-  color: white;
-  background-color: #202021;
   display: flex;
   flex-direction: column;
 }
 
 .create-note textarea {
-  color: white;
-  background-color: #202021;
   height: 100%;
   resize: none;
   border: none;
