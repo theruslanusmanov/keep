@@ -44,6 +44,8 @@
 
 .create-note textarea {
   height: 100%;
+  font-weight: 600;
+  font-size: 13pt;
   resize: none;
   border: none;
   outline: none;

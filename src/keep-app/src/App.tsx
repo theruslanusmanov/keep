@@ -47,7 +47,7 @@ function App() {
     <div className="App">
       <div className="notes" data-cy="notes">
         <div className="create-note note">
-          <textarea data-cy="note-body"/>
+          <textarea data-cy="note-body" placeholder="New note..."/>
           <button
             className="create-button"
             data-cy="create-button"
