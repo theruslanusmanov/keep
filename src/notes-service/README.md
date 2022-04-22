@@ -1,6 +1,12 @@
 # Notes Service
 
-## Start
+## Run
+
+### Dev Server
+
+- Start app `go run .`
+
+### Docker
 
 1. Build `docker build -t notes-service .`
 2. Run `docker run -p 8080:8080 -t notes-service`
@@ -14,4 +20,3 @@
     ...
 ]
 ```
-4. Great!
