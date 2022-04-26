@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {host} from "./environment";
-import {bodyText, initNotes} from "./mocks/posts.mock";
+import {bodyText, initNotes} from "./mocks/notes.mock";
 
 
 function App() {
