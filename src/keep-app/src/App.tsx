@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
-import {host} from "./environment";
-import {bodyText, initNotes} from "./mocks/notes.mock";
+import {environment} from "./environment";
+import {bodyTextMock, notesMock} from "./notes/notes.mock";
 
 
 function App() {
-  const [notes, setNotes] = useState(initNotes)
+  const [notes, setNotes] = useState(notesMock)
 
   useEffect(() => {
     if (false)
-      fetch(`${host}/notes`, {
+      fetch(`${environment.host}/notes`, {
         method: 'POST',
         body: null
       })
@@ -18,9 +18,9 @@ function App() {
   }, [])
 
   const createNote = () => {
-    setNotes([...notes, {id: '3', body: bodyText}]);
+    setNotes([...notes, {id: '3', body: bodyTextMock}]);
 
-    fetch(`${host}/note`, {
+    fetch(`${environment.host}/note`, {
       method: 'POST',
       body: 'New note text.'
     })
@@ -35,7 +35,7 @@ function App() {
     updatedNotes.splice(noteId, 1);
     setNotes(updatedNotes);
 
-    fetch(`${host}/note`, {
+    fetch(`${environment.host}/note`, {
       method: 'DELETE',
       body: id
     })
