@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
+import {host} from "./environment";
 
 
-const host = 'http://localhost:8080'
 const bodyText = 'New note text.'
 const initNotes = [
   {id: '1', body: 'Note'},
