@@ -1,46 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
-import {environment} from "./environment";
 import {bodyTextMock, notesMock} from "./notes/notes.mock";
+import {NotesAPI} from "./notes/notes.api";
 
 
 function App() {
   const [notes, setNotes] = useState(notesMock)
 
   useEffect(() => {
-    if (false)
-      fetch(`${environment.host}/notes`, {
-        method: 'POST',
-        body: null
-      })
-        .then(res => res.json())
-        .catch();
+    (async () => {
+      loadNotes()
+    })()
   }, [])
 
-  const createNote = () => {
-    setNotes([...notes, {id: '3', body: bodyTextMock}]);
-
-    fetch(`${environment.host}/note`, {
-      method: 'POST',
-      body: 'New note text.'
-    })
-      .then(res => res.json())
-      .then(res => notes.push({id: '3', body: res}))
-      .catch()
+  const loadNotes = async () => {
+    let response = await NotesAPI.getNotes()
+    setNotes(response);
   }
 
-  const removeNote = (id: string) => {
-    const noteId = notes.findIndex(v => v.id === id);
-    let updatedNotes = [...notes];
-    updatedNotes.splice(noteId, 1);
-    setNotes(updatedNotes);
+  const createNote = async (text: string) => {
+    let response = await NotesAPI.createNote(text)
+    setNotes([...notes, response]);
+  }
 
-    fetch(`${environment.host}/note`, {
-      method: 'DELETE',
-      body: id
-    })
-      .then(res => res.json())
-      .catch()
+  const removeNote = async (id: string) => {
+    await NotesAPI.removeNote(id)
+    loadNotes()
   }
 
   return (
@@ -52,7 +37,7 @@ function App() {
           <button
             className="create-button"
             data-cy="create-button"
-            onClick={() => createNote()}
+            onClick={() => createNote(bodyTextMock)}
           >
             Add
           </button>

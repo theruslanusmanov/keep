@@ -24,8 +24,10 @@ export class NotesAPI {
     /**
      * POST `/v1/notes/create`
      * Creates note.
+     *
+     * @param text - Note text.
      */
-    static createNote = (): Promise<unknown> => http.post('/v1/notes/create')
+    static createNote = (text: string): Promise<Note> => http.post('/v1/notes/create', text)
 
     /**
      * DELETE `/v1/notes/:noteId`

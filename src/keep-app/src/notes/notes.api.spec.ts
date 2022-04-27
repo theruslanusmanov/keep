@@ -1,5 +1,5 @@
 import {NotesAPI} from "./notes.api";
-import {notesMock} from "./notes.mock";
+import {bodyTextMock, notesMock} from "./notes.mock";
 
 describe('Notes API', function () {
   describe('#getNotes', function () {
@@ -25,7 +25,7 @@ describe('Notes API', function () {
     it('should create note', async function () {
       const responseMock = notesMock[0];
       jest.spyOn(NotesAPI, 'createNote').mockReturnValue(Promise.resolve(responseMock));
-      const response = await NotesAPI.createNote();
+      const response = await NotesAPI.createNote(bodyTextMock);
       expect(response).toEqual(responseMock);
     });
   });
