@@ -1,5 +1,7 @@
+import {Note} from "./notes";
+
 export const bodyTextMock = 'New note text.'
-export const notesMock = [
-    {id: '1', body: 'Note'},
-    {id: '2', body: 'Another Note'},
+export const notesMock: Note[] = [
+    {id: '1', text: 'Note'},
+    {id: '2', text: 'Another Note'},
 ]

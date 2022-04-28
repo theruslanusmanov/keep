@@ -23,12 +23,15 @@ func main() {
 	router.Use(cors.Default())
 	router.Use(CORSMiddleware())
 
-	router.GET("/notes", getNotes)
-	router.GET("/notes/:id", getNoteByID)
-	router.POST("/notes", postNotes)
-	router.DELETE("/notes", deleteNoteByID)
+	router.GET("/v1/notes", getNotes)
+	router.GET("/v1/notes/:id", getNoteByID)
+	router.POST("/v1/notes/create", createNote)
+	router.DELETE("/v1/notes", deleteNoteByID)
 
-	router.Run("0.0.0.0:8080")
+	err := router.Run("0.0.0.0:8080")
+	if err != nil {
+		return
+	}
 }
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -51,12 +54,16 @@ func getNotes(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, notes)
 }
 
-func postNotes(c *gin.Context) {
-	var newNote note
-
-	if err := c.BindJSON(&newNote); err != nil {
-		return
+func createNote(c *gin.Context) {
+	//var text string
+	var newNote = note{
+		ID:   "3",
+		Text: "new note",
 	}
+
+	//if err := c.BindJSON(&newNote); err != nil {
+	//	return
+	//}
 
 	notes = append(notes, newNote)
 	c.IndentedJSON(http.StatusCreated, newNote)

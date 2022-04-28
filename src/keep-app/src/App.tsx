@@ -45,8 +45,14 @@ function App() {
         {
           notes.map((v, i) => (
             <div key={i} className="note" data-cy="note">
-              <span>{v.body}</span>
-              <div className="delete-button" data-cy="delete-button" onClick={() => removeNote(v.id)}>X</div>
+              <span>{v.text}</span>
+              <div
+                className="delete-button"
+                data-cy="delete-button"
+                onClick={() => removeNote(v.id)}
+              >
+                X
+              </div>
             </div>
           ))
         }

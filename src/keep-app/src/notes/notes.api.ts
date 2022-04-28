@@ -1,5 +1,6 @@
 import {http} from "../api/http-common";
 import {Note} from "./notes";
+import {AxiosResponse} from "axios";
 
 
 /**
@@ -8,10 +9,10 @@ import {Note} from "./notes";
 export class NotesAPI {
 
     /**
-     * POST `/v1/notes`
+     * GET `/v1/notes`
      * Loads all saved notes.
      */
-    static getNotes = (): Promise<Note[]> => http.post('/v1/notes')
+    static getNotes = (): Promise<Note[]> => http.get('/v1/notes').then(response => response.data)
 
     /**
      * POST `/v1/notes/:noteId`
