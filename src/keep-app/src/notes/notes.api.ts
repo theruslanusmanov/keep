@@ -20,7 +20,7 @@ export class NotesAPI {
      *
      * @param noteId - Note ID.
      */
-    static getNote = (noteId: string): Promise<Note> => http.post(`/v1/notes/${noteId}`)
+    static getNote = (noteId: string): Promise<Note> => http.post(`/v1/notes/${noteId}`).then(response => response.data)
 
     /**
      * POST `/v1/notes`
@@ -28,7 +28,7 @@ export class NotesAPI {
      *
      * @param text - Note text.
      */
-    static createNote = (text: string): Promise<Note> => http.post('/v1/notes', text)
+    static createNote = (text: string): Promise<Note> => http.post('/v1/notes', text).then(response => response.data)
 
     /**
      * DELETE `/v1/notes/:noteId`
