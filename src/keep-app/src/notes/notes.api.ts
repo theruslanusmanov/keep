@@ -1,6 +1,5 @@
 import {http} from "../api/http-common";
 import {Note} from "./notes";
-import {AxiosResponse} from "axios";
 
 
 /**
