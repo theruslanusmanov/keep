@@ -19,8 +19,8 @@ function App() {
   }
 
   const createNote = async (text: string) => {
-    let response = await NotesAPI.createNote(text)
-    setNotes([...notes, response]);
+    await NotesAPI.createNote(text)
+    loadNotes()
   }
 
   const removeNote = async (id: string) => {

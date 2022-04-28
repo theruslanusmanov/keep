@@ -25,7 +25,7 @@ func main() {
 
 	router.GET("/v1/notes", getNotes)
 	router.GET("/v1/notes/:id", getNoteByID)
-	router.POST("/v1/notes/create", createNote)
+	router.POST("/v1/notes", createNote)
 	router.DELETE("/v1/notes", deleteNoteByID)
 
 	err := router.Run("0.0.0.0:8080")
@@ -55,15 +55,16 @@ func getNotes(c *gin.Context) {
 }
 
 func createNote(c *gin.Context) {
-	//var text string
-	var newNote = note{
-		ID:   "3",
-		Text: "new note",
+	var text string
+
+	if err := c.BindJSON(&text); err != nil {
+		return
 	}
 
-	//if err := c.BindJSON(&newNote); err != nil {
-	//	return
-	//}
+	var newNote = note{
+		ID:   "3",
+		Text: text,
+	}
 
 	notes = append(notes, newNote)
 	c.IndentedJSON(http.StatusCreated, newNote)
