@@ -3,6 +3,7 @@ import {bodyTextMock, notesMock} from "./notes.mock";
 import {Note} from "./notes";
 import {NotesAPI} from "./notes.api";
 
+
 export const NotesComponent = () => {
   const [notes, setNotes] = useState(notesMock)
 
@@ -26,7 +27,7 @@ export const NotesComponent = () => {
     await NotesAPI.removeNote(id)
     loadNotes()
   }
-  
+
   return (
     <>
       <h1>keep</h1>
