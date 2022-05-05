@@ -4,12 +4,7 @@ import {NotesComponent} from "./notes/notes.component";
 
 
 function App() {
-
-  return (
-    <div className="App">
-      <NotesComponent />
-    </div>
-  );
+  return <div className="App"><NotesComponent/></div>;
 }
 
 export default App;
