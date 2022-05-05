@@ -4,7 +4,9 @@ import {Note} from "./notes";
 import {NotesAPI} from "./notes.api";
 
 
-export const NotesComponent = () => {
+export const NEW_NOTE_PLACEHOLDER = 'New note...'
+
+export const NotesComponent = (): JSX.Element => {
   const [notes, setNotes] = useState(notesMock)
 
   useEffect(() => {
@@ -30,10 +32,9 @@ export const NotesComponent = () => {
 
   return (
     <>
-      <h1>keep</h1>
       <div className="notes" data-cy="notes">
         <div className="create-note note">
-          <textarea data-cy="note-body" placeholder="New note..."/>
+          <textarea data-cy="note-body" placeholder={NEW_NOTE_PLACEHOLDER}/>
           <button
             className="create-button"
             data-cy="create-button"
