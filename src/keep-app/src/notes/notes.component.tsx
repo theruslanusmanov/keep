@@ -11,7 +11,7 @@ export const NotesComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      loadNotes()
+      await loadNotes()
     })()
   }, [])
 
@@ -22,12 +22,12 @@ export const NotesComponent = (): JSX.Element => {
 
   const createNote = async (text: string) => {
     await NotesAPI.createNote(text)
-    loadNotes()
+    await loadNotes()
   }
 
   const removeNote = async (id: string) => {
     await NotesAPI.removeNote(id)
-    loadNotes()
+    await loadNotes()
   }
 
   return (
