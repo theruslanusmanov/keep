@@ -60,7 +60,7 @@ describe('App', () => {
       interceptRemoveNote().as('removeNote');
     });
 
-    it('should create note and update list', function () {
+    it.skip('should create note and update list', function () {
       cy.get('[data-cy="notes"]').find('div').should('have.length', 2);
       cy.get('[data-cy="create-button"]').click();
 
@@ -72,7 +72,7 @@ describe('App', () => {
       cy.get('[data-cy="note"]').should('have.length', 3);
     });
 
-    it('should show a list of notes', function () {
+    it.skip('should show a list of notes', function () {
       /*cy.wait('@getNotes').should(({request, response}) => {
         expect(response.statusCode).should('be', 200);
         /!*expect(response.body).to.be.equal(notes);*!/
@@ -80,7 +80,7 @@ describe('App', () => {
       cy.get('[data-cy="notes"]').find('.note').should('have.length', 2);
     });
 
-    it.only('should remove note', function () {
+    it.skip('should remove note', function () {
       cy.get('[data-cy="note"]')
         .first()
         .find('[data-cy="delete-button"]')
