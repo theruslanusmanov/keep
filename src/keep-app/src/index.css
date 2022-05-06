@@ -4,9 +4,14 @@
     sans-serif;
 }
 
+*::selection {
+    background-color: black;
+}
+
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f3f5f7;
+    background-color: #18191b;
+    color: lightgray;
 }

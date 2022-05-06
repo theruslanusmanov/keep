@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+
+import './notes.component.scss';
 import {bodyTextMock, notesMock} from "./notes.mock";
 import {Note} from "./notes";
 import {NotesAPI} from "./notes.api";
@@ -31,7 +33,8 @@ export const NotesComponent = (): JSX.Element => {
   }
 
   return (
-    <>
+    <div className="notes-wrapper">
+      <h1>Notes</h1>
       <div className="notes" data-cy="notes">
         <div className="create-note note">
           <textarea data-cy="note-body" placeholder={NEW_NOTE_PLACEHOLDER}/>
@@ -58,6 +61,6 @@ export const NotesComponent = (): JSX.Element => {
           ))
         }
       </div>
-    </>
+    </div>
   )
 }

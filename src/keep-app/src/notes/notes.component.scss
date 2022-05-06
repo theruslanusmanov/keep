@@ -1,0 +1,67 @@
+.notes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.note {
+  position: relative;
+  display: flex;
+  background-color: #202021;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  width: 240px;
+  height: 180px;
+  padding: 24px;
+  color: #818284;
+}
+
+.note span {
+  font-weight: 600;
+  font-size: 13pt;
+}
+
+.note .delete-button {
+  user-select: none;
+  font-weight: 600;
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  &:hover {
+    color: #167dff;
+  }
+}
+
+.create-note {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-note textarea {
+  height: 100%;
+  font-weight: 600;
+  font-size: 13pt;
+  resize: none;
+  border: none;
+  outline: none;
+  background-color: #202021;
+  color: #818284;
+}
+
+.create-note button {
+  height: 48px;
+  color: white;
+  background-color: #167dff;
+  border: unset;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13pt;
+}
